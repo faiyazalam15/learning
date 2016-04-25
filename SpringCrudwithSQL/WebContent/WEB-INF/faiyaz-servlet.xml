@@ -1,0 +1,68 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/beans     
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context 
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+
+	<context:component-scan base-package="net.faiyaz.controller" />
+	<mvc:annotation-driven />
+	
+	<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="viewClass" value="org.springframework.web.servlet.view.JstlView" />
+		<property name="prefix" value="/" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+
+<bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
+		<property name="url" value="jdbc:oracle:thin:@localhost:1521:xe" />
+		<property name="username" value="faiyaz" />
+		<property name="password" value="faiyaz" />
+	</bean>
+
+
+
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		
+		<property name="annotatedClasses">
+			<list>
+				<value>net.faiyaz.model.MoviePersistance</value>
+				<value>net.faiyaz.model.DirectorPersistance</value>
+				<value>net.faiyaz.model.StudioPersistance</value>
+			</list>
+		</property>
+
+		<property name="hibernateProperties">
+			<map>
+				<entry key="hibernate.dialect" value="org.hibernate.dialect.Oracle9Dialect" />
+				<entry key="hibernate.show_sql" value="true" />
+				<entry key="hibernate.hbm2ddl.auto" value="update" />
+			</map>
+		</property>
+	</bean>
+
+	<bean id="hibernateTemp" class="org.springframework.orm.hibernate3.HibernateTemplate"
+	autowire="byName" />
+
+	<bean id="dao" class="net.faiyaz.dao.MovieDaoImpl" autowire="byName" />
+	<bean id="service" class="net.faiyaz.service.MovieServiceImpl" autowire="byName" />
+	
+	<bean id="directordao" class="net.faiyaz.dao.DirectorDaoImp" autowire="byName" />
+	<bean id="dirservice" class="net.faiyaz.service.DirectorServiceImpl" autowire="byName" />
+	
+	
+	<bean id="stDao" class="net.faiyaz.dao.StudioDaoImpl" autowire="byName" />
+	<bean id="serImpl" class="net.faiyaz.service.StudioServiceImpl" autowire="byName" />
+	
+
+
+
+</beans>
