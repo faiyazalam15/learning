@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-module
+  type="WEB"
+  name="MovieTableProject"
+  id="myeclipse.1443971976364"
+  context-root="/MovieTableProject"
+  j2ee-spec="5.0"
+  archive="MovieTableProject.war">
+  <attributes>
+    <attribute name="webrootdir" value="WebRoot" />
+  </attributes>
+</project-module>
+
